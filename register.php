@@ -10,10 +10,10 @@ $noTelp = $_POST['notelp'];
 $gambar = $_POST['gambar'];
 
 $checkNIS = "SELECT * FROM data_siswa WHERE NIS='$nis'";
-$sendEmail = mysqli_query($connect, $checkNIS);
-$countEmail = mysqli_num_rows($sendEmail);
+$sendNIS = mysqli_query($connect, $checkNIS);
+$countNIS = mysqli_num_rows($sendNIS);
 
-if ($countEmail == 1) {
+if ($countNIS == 1) {
     echo json_encode("NIS sudah terdaftar");
 } else {
     $insert = "INSERT INTO data_siswa (NIS, nama_siswa, password, tingkatan, kelas, jenis_kelamin, notelp, gambar) 

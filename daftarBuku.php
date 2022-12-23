@@ -19,7 +19,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                 "jenis_buku" => $row["jenis_buku"],
                 "semester" => $row["semester"],
                 "tingkatan" => $row["tingkatan"],
-                "jumlah" => $row["jumlah"]
+                "jumlah" => $row["jumlah"],
+                "gambar" => $row["gambar"]
             ));
         }
     } else {

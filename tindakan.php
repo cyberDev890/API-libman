@@ -2,7 +2,7 @@
 include 'connect.php';
 $nis = $_GET['NIS'];
 
-$query = "SELECT data_buku.nama_buku,pengembalian.id_kembali,data_buku.semester, pengembalian.tanggal_pengembalian FROM `pengembalian` JOIN data_buku ON pengembalian.kd_buku=data_buku.kd_buku WHERE pengembalian.NIS='$nis'";
+$query = "SELECT data_buku.nama_buku,pengembalian.id_kembali,data_buku.semester, data_buku.gambar, pengembalian.tanggal_pengembalian FROM `pengembalian` JOIN data_buku ON pengembalian.kd_buku=data_buku.kd_buku WHERE pengembalian.NIS='$nis'";
 // Menjalankan query dan menyimpan hasilnya dalam variabel
 $result = mysqli_query($connect, $query);
 // Inisialisasi array kosong untuk menampung hasil
@@ -17,7 +17,3 @@ if (count($data) > 0) {
 } else{
     echo json_encode('Data Kosong');
 }
-?>
-
-
-
