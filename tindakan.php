@@ -1,6 +1,6 @@
 <?php
 include 'connect.php';
-$nis = $_GET['NIS'];
+$nis = $_POST['NIS'];
 
 $query = "SELECT data_buku.nama_buku,pengembalian.id_kembali,data_buku.semester, data_buku.gambar, pengembalian.tanggal_pengembalian FROM `pengembalian` JOIN data_buku ON pengembalian.kd_buku=data_buku.kd_buku WHERE pengembalian.NIS='$nis'";
 // Menjalankan query dan menyimpan hasilnya dalam variabel

@@ -1,13 +1,12 @@
 <?php
 
 include 'connect.php';
-$response = array();
 $NIS = $_POST['NIS'];
 $nama_siswa = $_POST['nama_siswa'];
 $nama_buku = $_POST['nama_buku'];
 $kd_buku = $_POST['kd_buku'];
 
-$checkFavorit = "SELECT * FROM buku_favorit WHERE NIS='$NIS'";
+$checkFavorit = "SELECT * FROM buku_favorit WHERE NIS='$NIS' AND kd_buku='$kd_buku' ";
 $sendFavorit = mysqli_query($connect, $checkFavorit);
 $countFavorit = mysqli_num_rows($sendFavorit);
 // Insert the data into the database
@@ -18,13 +17,10 @@ if ($countFavorit == 1) {
     $send = mysqli_query($connect, $query);
     if ($send) {
         # code...
-        $response['value'] = "1";
-        $response['message'] = "Success";
-        echo json_encode($response);
+        echo json_encode("Success");
     } else {
         # code...
-        $response['value'] = "0";
-        $response['message'] = "Failed";
-        echo json_encode($response);
+        echo json_encode("Eror");
+
     }
 }
