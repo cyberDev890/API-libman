@@ -29,7 +29,6 @@ if($exe){
     }
 }
 $query = "UPDATE `data_siswa` SET `nama_siswa` = '$nama',`notelp` = '$notelp',`gambar` = '$path' WHERE `data_siswa`.`NIS` = '$NIS'";
-// $query = "UPDATE `data_siswa` SET `gambar` = '$path' WHERE `data_siswa`.`NIS` = '$NIS'";
 file_put_contents($path, base64_decode($data));
 $arr = [];
 $exe = mysqli_query($connect, $query);
@@ -37,5 +36,4 @@ if ($exe) {
     $arr['success'] = "true";
 } else
     $arr['success'] = "false";
-echo json_encode($arr); 
-?>
+echo json_encode($arr);
