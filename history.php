@@ -3,7 +3,7 @@
 include 'connect.php';
 $nis = $_POST['NIS'];
 
-$query = "SELECT riwayat.nama_buku, data_buku.gambar,data_buku.semester, riwayat.tanggal_pengembalian FROM `riwayat` JOIN data_buku ON riwayat.kd_buku = data_buku.kd_buku WHERE riwayat.NIS = $nis";
+$query = "SELECT data_buku.nama_buku, data_buku.gambar,data_buku.semester, pengembalian.tanggal_pengembalian FROM `pengembalian` JOIN data_buku ON pengembalian.kd_buku = data_buku.kd_buku WHERE pengembalian.NIS = $nis";
 // Menjalankan query dan menyimpan hasilnya dalam variabel
 $result = mysqli_query($connect, $query);
 // Inisialisasi array kosong untuk menampung hasil

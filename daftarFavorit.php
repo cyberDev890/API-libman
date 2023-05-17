@@ -2,7 +2,6 @@
 <?php
 include 'connect.php';
 $nis = $_POST['NIS'];
-
 $query =  "SELECT buku_favorit.nama_buku,data_buku.semester,data_buku.gambar FROM `buku_favorit` JOIN data_buku ON buku_favorit.kd_buku= data_buku.kd_buku WHERE buku_favorit.NIS='$nis'";
 // Menjalankan query dan menyimpan hasilnya dalam variabel
 $result = mysqli_query($connect, $query);

@@ -13,7 +13,7 @@ $countFavorit = mysqli_num_rows($sendFavorit);
 if ($countFavorit == 1) {
     echo json_encode("Sudah ditambahkan");
 } else {
-    $query = "INSERT INTO buku_favorit (`NIS`, `nama_siswa`, `nama_buku`, `kd_buku`)  VALUES ('$NIS', '$nama_siswa', '$nama_buku', '$kd_buku')";
+    $query = "INSERT INTO buku_favorit (`NIS`, `nama_buku`, `kd_buku`)  VALUES ('$NIS', '$nama_buku', '$kd_buku')";
     $send = mysqli_query($connect, $query);
     if ($send) {
         # code...
