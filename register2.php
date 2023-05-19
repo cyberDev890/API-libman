@@ -1,10 +1,10 @@
 <?php
 
-include 'connection.php';
+include 'connect.php';
 
 if ($_POST) {
 
-    //POST DATA
+    // POST DATA
     $NIS = filter_input(INPUT_POST, 'NIS', FILTER_SANITIZE_STRING);
     $nama_siswa = filter_input(INPUT_POST, 'nama_siswa', FILTER_SANITIZE_STRING);
     $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
@@ -17,33 +17,27 @@ if ($_POST) {
 
     $response = [];
 
-    //Cek username didalam databse
-    $userQuery = $connection->prepare("SELECT * FROM data_siswa where NIS = ?");
-    $userQuery->execute(array($NIS));
+    // Cek username dalam database
+    $userQuery = $connect->prepare("SELECT * FROM data_siswa WHERE NIS = ?");
+    $userQuery->bind_param("s", $NIS);
+    $userQuery->execute();
+    $userResult = $userQuery->get_result();
 
-    // Cek username apakah ada tau tidak
-    if ($userQuery->rowCount() != 0) {
+    // Cek apakah username sudah ada atau tidak
+    if ($userResult->num_rows != 0) {
         // Beri Response
         $response['status'] = false;
         $response['message'] = 'Akun sudah digunakan';
     } else {
-        $insertAccount = 'INSERT INTO data_siswa (NIS,nama_siswa, password,tingkatan,kelas,jenis_kelamin,notelp,gambar) values (:NIS, :nama_siswa, :password, :tingkatan, :kelas, :jenis_kelamin, :notelp, :gambar)';
-        $statement = $connection->prepare($insertAccount);
+        $insertAccount = 'INSERT INTO data_siswa (NIS, nama_siswa, password, tingkatan, kelas, jenis_kelamin, notelp, gambar) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+        $statement = $connect->prepare($insertAccount);
 
         try {
-            //Eksekusi statement db
-            $statement->execute([
-                ':NIS' => $NIS,
-                ':nama_siswa' => $nama_siswa,
-                ':password' => md5($password),
-                ':tingkatan' => $tingkatan,
-                ':kelas' => $kelas,
-                ':jenis_kelamin' => $jenis_kelamin,
-                ':notelp' => $notelp,
-                ':gambar' => $gambar
-            ]);
+            // Eksekusi statement db
+            $statement->bind_param("ssssssss", $NIS, $nama_siswa, md5($password), $tingkatan, $kelas, $jenis_kelamin, $notelp, $gambar);
+            $statement->execute();
 
-            //Beri response
+            // Beri response
             $response['status'] = true;
             $response['message'] = 'Akun berhasil didaftar';
             $response['data'] = [
@@ -61,9 +55,9 @@ if ($_POST) {
         }
     }
 
-    //Jadikan data JSON
+    // Jadikan data JSON
     $json = json_encode($response, JSON_PRETTY_PRINT);
 
-    //Print JSON
+    // Print JSON
     echo $json;
 }

@@ -1,6 +1,4 @@
-
-
-<?php
+<!-- <?php
 
 $connection = null;
 
@@ -12,9 +10,12 @@ try{
     $dbname = "libman";
 
     //Connect
-    $database = "mysql:dbname=$dbname;host=$host";
-    $connection = new PDO($database, $username, $password);
-    $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $connection = new mysqli($host, $username, $password, $dbname);
+
+    // Cek koneksi
+    if ($connection->connect_error) {
+        die("Connection failed: " . $connection->connect_error);
+    }
 
     // if($connection){
     //     echo "Koneksi Berhasil";
@@ -22,10 +23,9 @@ try{
     //     echo "Gagal gan";
     // }
 
-
-} catch (PDOException $e){
+} catch (Exception $e){
     echo "Error ! " . $e->getMessage();
     die;
 }
 
-?>
+?> -->
